@@ -1,0 +1,55 @@
+#mxr {
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+
+    $padding: 5px;
+
+    margin: $padding;
+    padding: $padding;
+    border:1px solid #33CC33;
+    background: #CCFFCC;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    position: relative;
+
+    .box{
+        margin: $padding;
+        border:1px solid #AAAAAA;
+        background: #EEEEEE;
+    }
+
+    .row {
+        font-size:15px;
+        padding: 5px;
+    }
+
+    .row, .box {
+        padding: $padding;
+        // width: 90%;
+    }
+
+    input {
+        padding:5px;
+        font-size:15px;
+        width: 40px;
+        border: none;
+        outline: none;
+        border:1px solid #33CC33;
+        background-color: #EEEEEE;
+        border-radius: 5px;
+    }
+    select {
+        @extend input;
+        width: auto;
+    }
+
+    .nicotine {
+
+    }
+
+    .right {
+        float: right;
+    }
+
+}
+

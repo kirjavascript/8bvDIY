@@ -1,0 +1,74 @@
+<div class="row">
+    Bottle Size
+    <input 
+        type="number"
+        min="0"
+        max="500"
+        step="10"
+        value="20"
+        id="qty"> ml
+
+    &emsp;
+
+    <div class="right">
+        PG <input 
+            type="number"
+            min="0"
+            max="100"
+            step="10"
+            value="20"
+            id="pg">
+        VG <input 
+            type="number"
+            min="0"
+            max="100"
+            step="10"
+            value="80"
+            id="vg">
+    </div>
+</div>
+<div class="row">
+
+    Nicotine
+    <input 
+        type="number"
+        min="0"
+        max="100"
+        step="2"
+        value="10"
+        id="mg"> mg/ml
+    (Or
+    <input 
+        type="number"
+        min="0"
+        max="10"
+        step="0.1"
+        value="1"
+        id="pct"> %)
+
+        <div class="right">
+            Nicotine Base
+            <input 
+                type="number"
+                min="0"
+                max="100"
+                step="2"
+                value="72"
+                id="nicBase"> mg/ml
+                <select id="nicType">
+                    <option value="VG">VG</option>
+                    <option value="PG">PG</option>
+                </select>
+        </div>
+</div>
+
+<div class="box">
+    Nicotine
+    <span id="nicPct"></span>
+</div>
+<div class="box">
+    VG
+</div>
+<div class="box">
+    PG
+</div>
