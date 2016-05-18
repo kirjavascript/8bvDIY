@@ -7,14 +7,16 @@ import UI from 'html!../html/mxr.html';
 
 let mxr = d3.select('#mxr').html(UI);
 
-let [pg, vg, mg, pct, nicType, nicBase, nicPct, qty] = [
+let [pg, vg, mg, pct, nicType, nicBase, vgOut, pgOut, nicOut, qty] = [
     mxr.select('#pg'),
     mxr.select('#vg'),
     mxr.select('#mg'),
     mxr.select('#pct'),
     mxr.select('#nicType'),
     mxr.select('#nicBase'),
-    mxr.select('#nicPct'),
+    mxr.select('#vgOut'),
+    mxr.select('#pgOut'),
+    mxr.select('#nicOut'),
     mxr.select('#qty')
 ];
 
@@ -32,16 +34,19 @@ function update() {
         qty: qty.property('value')
     };
 
-    conf.nicPct = (conf.mg / conf.nicBase) * conf.qty;
+    function getAmt(num) {
+        return (num*conf.qty/100).toFixed(2);
+    }
+
+    let nicPct = (conf.mg / conf.nicBase * 100).toFixed(2);
+
+    // flavours just subtract from the vg percent
+    conf[conf.nicType] -= nicPct;
 
 
-
-console.log(out)
-    // get percentages
-
-    // nic first, left over
-
-    // calc ml from pct
+    nicOut.html(`${nicPct}% - ${getAmt(nicPct)}ml`);
+    pgOut.html(`${(+conf.pg).toFixed(2)}% - ${getAmt(conf.pg)}ml`);
+    vgOut.html(`${(+conf.vg).toFixed(2)}% - ${getAmt(conf.vg)}ml`);
 
 }
 
