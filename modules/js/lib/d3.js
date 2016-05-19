@@ -47,45 +47,45 @@
 //   randomExponential
 // } from "d3-random";
 
-// export {
-//   easeLinear,
-//   easeQuad,
-//   easeQuadIn,
-//   easeQuadOut,
-//   easeQuadInOut,
-//   easeCubic,
-//   easeCubicIn,
-//   easeCubicOut,
-//   easeCubicInOut,
-//   easePoly,
-//   easePolyIn,
-//   easePolyOut,
-//   easePolyInOut,
-//   easeSin,
-//   easeSinIn,
-//   easeSinOut,
-//   easeSinInOut,
-//   easeExp,
-//   easeExpIn,
-//   easeExpOut,
-//   easeExpInOut,
-//   easeCircle,
-//   easeCircleIn,
-//   easeCircleOut,
-//   easeCircleInOut,
-//   easeBounce,
-//   easeBounceIn,
-//   easeBounceOut,
-//   easeBounceInOut,
-//   easeBack,
-//   easeBackIn,
-//   easeBackOut,
-//   easeBackInOut,
-//   easeElastic,
-//   easeElasticIn,
-//   easeElasticOut,
-//   easeElasticInOut
-// } from "d3-ease";
+export {
+  easeLinear,
+  easeQuad,
+  easeQuadIn,
+  easeQuadOut,
+  easeQuadInOut,
+  easeCubic,
+  easeCubicIn,
+  easeCubicOut,
+  easeCubicInOut,
+  easePoly,
+  easePolyIn,
+  easePolyOut,
+  easePolyInOut,
+  easeSin,
+  easeSinIn,
+  easeSinOut,
+  easeSinInOut,
+  easeExp,
+  easeExpIn,
+  easeExpOut,
+  easeExpInOut,
+  easeCircle,
+  easeCircleIn,
+  easeCircleOut,
+  easeCircleInOut,
+  easeBounce,
+  easeBounceIn,
+  easeBounceOut,
+  easeBounceInOut,
+  easeBack,
+  easeBackIn,
+  easeBackOut,
+  easeBackInOut,
+  easeElastic,
+  easeElasticIn,
+  easeElasticOut,
+  easeElasticInOut
+} from "d3-ease";
 
 // export {
 //   polygonArea,
@@ -386,10 +386,10 @@ export {
   event
 } from "d3-selection";
 
-// export {
-//   active,
-//   transition
-// } from "d3-transition";
+export {
+  active,
+  transition
+} from "d3-transition";
 
 // export {
 //   axisTop,

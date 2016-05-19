@@ -41,8 +41,21 @@ function update() {
 
     let nicPct = (conf.mg / conf.nicBase * 100).toFixed(2);
 
-    // flavours just subtract from the vg percent
     conf[conf.nicType] -= nicPct;
+
+    d3.selectAll('.flav')
+        .each(function(){
+            let flav = d3.select(this);
+
+            let type = flav.select('.nicType').property('value');
+
+            let pct = flav.select('.pct').property('value');
+
+            conf[type] -= pct;
+
+            flav.select('.out').html(`${(+pct).toFixed(2)}% - ${getAmt(pct)}ml`)
+
+        })
 
 
     nicOut.html(`${nicPct}% - ${getAmt(nicPct)}ml`);
@@ -53,19 +66,48 @@ function update() {
 
 update();
 
-// events //
+// flavour //
 
 add.on('click', () => {
     let newFlav = d3.select('#flavs')
         .append('div')
-        .attr('class','box')
-        .html(flav);
+        .attr('class','flav')
+        .html(flav)
+
+    update();
+
+    newFlav.call(dropFade)
+
+    // events
+
+    newFlav.select('.pct')
+        .on('keydown keyup change', function(){
+            newFlav.select('.qty').property('value', this.value*qty.property('value')/100)
+            update();
+        })
+
+    newFlav.select('.qty')
+        .on('keydown keyup change', function(){
+            newFlav.select('.pct').property('value', this.value/qty.property('value')*100)
+            update();
+        })
+
+    newFlav.select('.nicType')
+        .on('keydown keyup change', update)
 
     newFlav.select('.remove')
         .on('click', () => {
-            newFlav.remove();
+            newFlav.call(jumpFade);
         })
+
+    // init ml
+
+    newFlav.select('.qty')
+        .property('value', qty.property('value')/10)
+
 })
+
+// config //
 
 mxr.selectAll('#qty, #nicBase, #nicType')
     .on('keydown keyup change', update)
@@ -90,3 +132,26 @@ pct.on('keydown keyup change', function() {
         update();
     })
 
+// anim //
+
+function dropFade(selection) {
+    selection
+        .style('opacity', 0)
+        .style('margin-top', '-50px')
+        .transition()
+        .duration(750)
+        .ease(d3.easeElastic)
+        .style('opacity', 1)
+        .style('margin-top', '0px')
+}
+
+function jumpFade(selection) {
+    selection
+        .style('margin-top', '0px')
+        .transition()
+        .duration(500)
+        .style('opacity', 0)
+        .style('margin-top', '-50px')
+        .remove()
+        .on('end', d => {update()})
+}

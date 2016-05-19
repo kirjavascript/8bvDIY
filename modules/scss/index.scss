@@ -32,7 +32,7 @@
     input {
         padding:5px;
         font-size:15px;
-        width: 40px;
+        width: 50px;
         border: none;
         outline: none;
         border:1px solid #33CC33;
@@ -55,6 +55,21 @@
 
     .flavName {
         width: auto;
+    }
+
+    .flav {
+        @extend .box;
+        position: relative;
+
+        * {
+            //opacity: 0;
+        }
+
+        .out {
+            position: absolute;
+            right: 5px;
+            top: 12px;
+        }
     }
 
 }
