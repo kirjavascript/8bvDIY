@@ -386,10 +386,10 @@ export {
   event
 } from "d3-selection";
 
-export {
-  active,
-  transition
-} from "d3-transition";
+// export {
+//   active,
+//   transition
+// } from "d3-transition";
 
 // export {
 //   axisTop,

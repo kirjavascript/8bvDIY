@@ -26,6 +26,7 @@
     .row, .box {
         padding: $padding;
         // width: 90%;
+        border-radius: 5px;
     }
 
     input {
@@ -38,17 +39,18 @@
         background-color: #EEEEEE;
         border-radius: 5px;
     }
-    select {
+    select, button {
         @extend input;
         width: auto;
-    }
-
-    .nicotine {
-
+        cursor: pointer;
     }
 
     .right {
         float: right;
+    }
+
+    #add {
+        margin-left: 5px;
     }
 
 }
