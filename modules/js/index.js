@@ -1,6 +1,6 @@
 import '../scss/index.scss';
 import * as d3 from './lib/d3';
-import { mix as getMix } from './http';
+import { mix as getMix, flavour } from './http';
 import UI from 'html!../html/mxr.html';
 import flav from 'html!../html/flav.html';
 
@@ -15,7 +15,9 @@ if(mix) {
 
     getMix(mix[1], mixinfo => {
         mixinfo.forEach(d => {
-            addFlav(d);
+            flavour(d.flavour, flavinfo => {
+                addFlav(Object.assign(d, flavinfo));
+            })
         })
     })
 
@@ -94,10 +96,14 @@ function addFlav (mixinfo) {
     let newPct = newFlav.select('.pct');
 
     if(mixinfo) {
+        console.log(mixinfo)
+
         newFlav.select('.pct').property('value',mixinfo.amount)
         newFlav.select('.flavName')
-            .property('value',mixinfo.flavour)
+            .property('value',mixinfo.description)
             .style('background-image',`url("https://8bitvape.co.uk/img/flavimg/${mixinfo.flavour}.png")`)
+
+        newFlav.select('.flavInfo').style('display','inline')
     }
 
     update();
@@ -129,7 +135,7 @@ function addFlav (mixinfo) {
     // init ml
 
     newFlav.select('.qty')
-        .property('value', (newPct.property('value')/qty.property('value')*100).toFixed(2))
+        .property('value', (newPct.property('value')*qty.property('value')/100).toFixed(2))
 
 }
 
