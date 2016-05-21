@@ -1,6 +1,6 @@
 import * as d3 from './lib/d3';
 
-export function mixinfo(str, callback) {
+export function mix(str, callback) {
 
     d3.text('https://8bitvape.co.uk/getmix.php?f='+str, (e,d) => {
         d = d.split(' ').map(d => {
@@ -11,15 +11,15 @@ export function mixinfo(str, callback) {
             }
         }).splice(1)
 
-        console.log(d);
+        callback(d);
     })
 }
 
-export function flavourinfo(str, callback) {
+export function flavour(str, callback) {
 
-    d3.text('https://8bitvape.co.uk/getflav.php?f='+str, (e,d) => {
+    d3.json('https://8bitvape.co.uk/getflav.php?f='+str, (e,d) => {
 
         
-        console.log(d);
+        callbak(d);
     })
 }

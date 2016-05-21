@@ -1,12 +1,25 @@
 import '../scss/index.scss';
 import * as d3 from './lib/d3';
-import { mixinfo } from './http';
+import { mix as getMix } from './http';
 import UI from 'html!../html/mxr.html';
 import flav from 'html!../html/flav.html';
 
-mixinfo('Pf5pSf');
+// init //
 
 let mxr = d3.select('#mxr').html(UI);
+
+// ?m=Pf5pSf
+let mix = /m=([a-zA-Z0-9]*)/.exec(location.search);
+
+if(mix) {
+
+    getMix(mix[1], mixinfo => {
+        mixinfo.forEach(d => {
+            addFlav(d);
+        })
+    })
+
+}
 
 // selector caching
 
@@ -72,11 +85,20 @@ update();
 
 // flavour //
 
-add.on('click', () => {
+function addFlav (mixinfo) {
     let newFlav = d3.select('#flavs')
         .append('div')
         .attr('class','flav')
         .html(flav)
+
+    let newPct = newFlav.select('.pct');
+
+    if(mixinfo) {
+        newFlav.select('.pct').property('value',mixinfo.amount)
+        newFlav.select('.flavName')
+            .property('value',mixinfo.flavour)
+            .style('background-image',`url("https://8bitvape.co.uk/img/flavimg/${mixinfo.flavour}.png")`)
+    }
 
     update();
 
@@ -84,7 +106,7 @@ add.on('click', () => {
 
     // events
 
-    newFlav.select('.pct')
+    newPct
         .on('keydown keyup change', function(){
             newFlav.select('.qty').property('value', this.value*qty.property('value')/100)
             update();
@@ -92,7 +114,7 @@ add.on('click', () => {
 
     newFlav.select('.qty')
         .on('keydown keyup change', function(){
-            newFlav.select('.pct').property('value', this.value/qty.property('value')*100)
+            newPct.property('value', this.value/qty.property('value')*100)
             update();
         })
 
@@ -107,9 +129,11 @@ add.on('click', () => {
     // init ml
 
     newFlav.select('.qty')
-        .property('value', qty.property('value')/10)
+        .property('value', (newPct.property('value')/qty.property('value')*100).toFixed(2))
 
-})
+}
+
+add.on('click',addFlav);
 
 // config //
 
@@ -147,7 +171,6 @@ function dropFade(selection) {
         .style('margin-top', '-50px')
         .transition()
         .duration(750)
-        .ease(d3.easeElastic)
         .style('opacity', 1)
         .style('margin-top', '0px')
 }
