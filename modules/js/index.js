@@ -4,9 +4,11 @@ import { mixinfo } from './http';
 import UI from 'html!../html/mxr.html';
 import flav from 'html!../html/flav.html';
 
-//mixinfo('Pf5pSf');
+mixinfo('Pf5pSf');
 
 let mxr = d3.select('#mxr').html(UI);
+
+// selector caching
 
 let [pg, vg, mg, pct, nicType, nicBase, vgOut, pgOut, nicOut, qty, add] = [
     mxr.select('#pg'),
@@ -38,6 +40,8 @@ function update() {
     function getAmt(num) {
         return (num*conf.qty/100).toFixed(2);
     }
+
+    // calc
 
     let nicPct = (conf.mg / conf.nicBase * 100).toFixed(2);
 
@@ -124,6 +128,9 @@ vg.on('keydown keyup change', function() {
 
 mg.on('keydown keyup change', function() {
         pct.property('value', this.value/10)
+        if (this.value > nicBase.property('value')) {
+            nicBase.property('value', this.value)
+        }
         update();
     })
 

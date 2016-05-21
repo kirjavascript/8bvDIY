@@ -32,7 +32,6 @@
     input {
         padding:5px;
         font-size:15px;
-        width: 50px;
         border: none;
         outline: none;
         border:1px solid #33CC33;
@@ -41,7 +40,6 @@
     }
     select, button {
         @extend input;
-        width: auto;
         cursor: pointer;
     }
 
