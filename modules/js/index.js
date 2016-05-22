@@ -1,12 +1,31 @@
 import '../scss/index.scss';
 import * as d3 from './lib/d3';
-import { mixinfo } from './http';
+import { mix as getMix, flavour } from './http';
 import UI from 'html!../html/mxr.html';
-import flav from 'html!../html/flav.html';
+import flav from 'ejs-compiled!../html/flav.html';
 
-//mixinfo('Pf5pSf');
+// cat10 scale for bottle
+
+// init //
 
 let mxr = d3.select('#mxr').html(UI);
+
+// ?m=Pf5pSf
+let mix = /m=([a-zA-Z0-9]*)/.exec(location.search);
+
+if(mix) {
+
+    getMix(mix[1], mixinfo => {
+        mixinfo.forEach(d => {
+            flavour(d.flavour, flavinfo => {
+                addFlav(Object.assign(d, flavinfo));
+            })
+        })
+    })
+
+}
+
+// selector caching
 
 let [pg, vg, mg, pct, nicType, nicBase, vgOut, pgOut, nicOut, qty, add] = [
     mxr.select('#pg'),
@@ -39,6 +58,8 @@ function update() {
         return (num*conf.qty/100).toFixed(2);
     }
 
+    // calc
+
     let nicPct = (conf.mg / conf.nicBase * 100).toFixed(2);
 
     conf[conf.nicType] -= nicPct;
@@ -68,19 +89,44 @@ update();
 
 // flavour //
 
-add.on('click', () => {
+function addFlav (mixinfo) {
     let newFlav = d3.select('#flavs')
         .append('div')
         .attr('class','flav')
-        .html(flav)
+        .html(flav({mixinfo}))
+
+    if(mixinfo) {
+        newFlav.select('.flavInfo')
+            .on('click', () => {
+                newFlav.select('.info')
+                    .style('display', 'block')
+                    .style('opacity', 0)
+                    .transition()
+                    .duration(300)
+                    .style('opacity', 1)
+            })
+        newFlav.select('.info')
+            .on('mouseleave', function() {
+                d3.select(this)
+                    .transition()
+                    .duration(300)
+                    .style('opacity', 0)
+                    .on('end', function() {
+                        d3.select(this)
+                            .style('display', 'none')
+                    })
+            })
+    }
 
     update();
 
     newFlav.call(dropFade)
 
+    let newPct = newFlav.select('.pct');
+
     // events
 
-    newFlav.select('.pct')
+    newPct
         .on('keydown keyup change', function(){
             newFlav.select('.qty').property('value', this.value*qty.property('value')/100)
             update();
@@ -88,7 +134,7 @@ add.on('click', () => {
 
     newFlav.select('.qty')
         .on('keydown keyup change', function(){
-            newFlav.select('.pct').property('value', this.value/qty.property('value')*100)
+            newPct.property('value', this.value/qty.property('value')*100)
             update();
         })
 
@@ -103,9 +149,11 @@ add.on('click', () => {
     // init ml
 
     newFlav.select('.qty')
-        .property('value', qty.property('value')/10)
+        .property('value', (newPct.property('value')*qty.property('value')/100).toFixed(2))
 
-})
+}
+
+add.on('click',addFlav);
 
 // config //
 
@@ -124,6 +172,9 @@ vg.on('keydown keyup change', function() {
 
 mg.on('keydown keyup change', function() {
         pct.property('value', this.value/10)
+        if (this.value > nicBase.property('value')) {
+            nicBase.property('value', this.value)
+        }
         update();
     })
 
@@ -140,7 +191,6 @@ function dropFade(selection) {
         .style('margin-top', '-50px')
         .transition()
         .duration(300)
-        .ease(d3.easeQuad)
         .style('opacity', 1)
         .style('margin-top', '0px')
 }

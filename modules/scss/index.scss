@@ -32,7 +32,6 @@
     input {
         padding:5px;
         font-size:15px;
-        width: 50px;
         border: none;
         outline: none;
         border:1px solid #33CC33;
@@ -41,7 +40,6 @@
     }
     select, button {
         @extend input;
-        width: auto;
         cursor: pointer;
     }
 
@@ -69,6 +67,31 @@
             position: absolute;
             right: 5px;
             top: 12px;
+        }
+
+        .flavName {
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: right;
+        }
+
+        .info {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 0;
+            @extend .box;
+            z-index: 1;
+            padding: 10px;
+
+            p {
+                padding: 10px;
+                margin: 0px;
+            }
+
+            .lbl {
+                font-size: 12px;
+            }
         }
     }
 

@@ -1,7 +1,19 @@
-<input
-    type="text"
-    placeholder="Flavour name..."
-    class="flavName"/>
+<div class="img"></div>
+    <% if (mixinfo) { %>
+        <input
+            type="text"
+            placeholder="Flavour name..."
+            class="flavName"
+            value="<%= mixinfo.description %>"
+            style="background-image:url('https://8bitvape.co.uk/img/flavimg/<%= mixinfo.flavour %>.png')"
+            />
+        <button class="flavInfo">Info</button>
+    <% } else { %>
+        <input
+            type="text"
+            placeholder="Flavour name..."
+            class="flavName"/>
+    <% } %>
 <input
     type="number"
     min="0"
@@ -15,11 +27,18 @@
     min="0"
     max="100"
     step="1"
-    value="10"
+    value="<%= mixinfo?mixinfo.amount:10 %>"
     class="pct"/> <span>%)</span> 
 <select class="nicType">
-    <option value="vg">VG</option>
     <option value="pg">PG</option>
+    <option value="vg">VG</option>
 </select>
 <button class="remove">Remove</button>
 <span class="out"></span> 
+
+<% if (mixinfo) { %>
+    <span class="info">
+        <p><%- mixinfo.fulldesc %><p>
+        <span class="lbl"><%= mixinfo.company %></span>
+    </span>
+<% } %>
