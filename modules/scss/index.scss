@@ -75,8 +75,23 @@
             background-position: right;
         }
 
-        .flavInfo, .flav {
+        .info {
             display: none;
+            position: absolute;
+            left: 0;
+            top: 0;
+            @extend .box;
+            z-index: 1;
+            padding: 10px;
+
+            p {
+                padding: 10px;
+                margin: 0px;
+            }
+
+            .lbl {
+                font-size: 12px;
+            }
         }
     }
 

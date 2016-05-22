@@ -18,7 +18,6 @@ export function mix(str, callback) {
 export function flavour(str, callback) {
 
     d3.json('https://8bitvape.co.uk/getflav.php?f='+str, (e,d) => {
-        
         callback(d);
     })
 }

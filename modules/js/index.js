@@ -2,7 +2,9 @@ import '../scss/index.scss';
 import * as d3 from './lib/d3';
 import { mix as getMix, flavour } from './http';
 import UI from 'html!../html/mxr.html';
-import flav from 'html!../html/flav.html';
+import flav from 'ejs-compiled!../html/flav.html';
+
+// cat10 scale for bottle
 
 // init //
 
@@ -91,24 +93,36 @@ function addFlav (mixinfo) {
     let newFlav = d3.select('#flavs')
         .append('div')
         .attr('class','flav')
-        .html(flav)
-
-    let newPct = newFlav.select('.pct');
+        .html(flav({mixinfo}))
 
     if(mixinfo) {
-        console.log(mixinfo)
-
-        newFlav.select('.pct').property('value',mixinfo.amount)
-        newFlav.select('.flavName')
-            .property('value',mixinfo.description)
-            .style('background-image',`url("https://8bitvape.co.uk/img/flavimg/${mixinfo.flavour}.png")`)
-
-        newFlav.select('.flavInfo').style('display','inline')
+        newFlav.select('.flavInfo')
+            .on('click', () => {
+                newFlav.select('.info')
+                    .style('display', 'block')
+                    .style('opacity', 0)
+                    .transition()
+                    .duration(300)
+                    .style('opacity', 1)
+            })
+        newFlav.select('.info')
+            .on('mouseleave', function() {
+                d3.select(this)
+                    .transition()
+                    .duration(300)
+                    .style('opacity', 0)
+                    .on('end', function() {
+                        d3.select(this)
+                            .style('display', 'none')
+                    })
+            })
     }
 
     update();
 
     newFlav.call(dropFade)
+
+    let newPct = newFlav.select('.pct');
 
     // events
 
