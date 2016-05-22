@@ -7,7 +7,6 @@ module.exports = {
     ],
     output: {
         path:     'static',
-        //publicPath: 'data',
         filename: 'bundle.js',
     },
     module: {
@@ -29,10 +28,6 @@ module.exports = {
     plugins: [
         new copy([
             { from: './templates', to: '.'},
-        ]),
-        // new webpack.ProvidePlugin({
-        //     $: "jquery",
-        //     jQuery: "jquery"
-        // })
+        ])
     ]
 };

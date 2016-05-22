@@ -47,45 +47,45 @@
 //   randomExponential
 // } from "d3-random";
 
-export {
-  easeLinear,
-  easeQuad,
-  easeQuadIn,
-  easeQuadOut,
-  easeQuadInOut,
-  easeCubic,
-  easeCubicIn,
-  easeCubicOut,
-  easeCubicInOut,
-  easePoly,
-  easePolyIn,
-  easePolyOut,
-  easePolyInOut,
-  easeSin,
-  easeSinIn,
-  easeSinOut,
-  easeSinInOut,
-  easeExp,
-  easeExpIn,
-  easeExpOut,
-  easeExpInOut,
-  easeCircle,
-  easeCircleIn,
-  easeCircleOut,
-  easeCircleInOut,
-  easeBounce,
-  easeBounceIn,
-  easeBounceOut,
-  easeBounceInOut,
-  easeBack,
-  easeBackIn,
-  easeBackOut,
-  easeBackInOut,
-  easeElastic,
-  easeElasticIn,
-  easeElasticOut,
-  easeElasticInOut
-} from "d3-ease";
+// export {
+  // easeLinear,
+  // easeQuad,
+  // easeQuadIn,
+  // easeQuadOut,
+  // easeQuadInOut,
+  // easeCubic,
+  // easeCubicIn,
+  // easeCubicOut,
+  // easeCubicInOut,
+  // easePoly,
+  // easePolyIn,
+  // easePolyOut,
+  // easePolyInOut,
+  // easeSin,
+  // easeSinIn,
+  // easeSinOut,
+  // easeSinInOut,
+  // easeExp,
+  // easeExpIn,
+  // easeExpOut,
+  // easeExpInOut,
+  // easeCircle,
+  // easeCircleIn,
+  // easeCircleOut,
+  // easeCircleInOut,
+  // easeBounce,
+  // easeBounceIn,
+  // easeBounceOut,
+  // easeBounceInOut,
+  // easeBack,
+  // easeBackIn,
+  // easeBackOut,
+  // easeBackInOut,
+  // easeElastic,
+  // easeElasticIn,
+  // easeElasticOut,
+  // easeElasticInOut
+// } from "d3-ease";
 
 // export {
 //   polygonArea,
@@ -198,15 +198,15 @@ export {
 //   tsvFormatRows
 // } from "d3-dsv";
 
-export {
-  request,
-  html,
-  json,
-  text,
-  xml,
-  csv,
-  tsv
-} from "d3-request";
+// export {
+//   request,
+//   html,
+//   json,
+//   text,
+//   xml,
+//   csv,
+//   tsv
+// } from "d3-request";
 
 // export {
 //   now,
@@ -375,19 +375,19 @@ export {
 // } from "d3-scale";
 
 export {
-  mouse,
-  namespace,
-  namespaces,
+  // mouse,
+  // namespace,
+  // namespaces,
   select,
   selectAll,
   selection,
-  touch,
-  touches,
-  event
+  // touch,
+  // touches,
+  // event
 } from "d3-selection";
 
 export {
-  active,
+  // active,
   transition
 } from "d3-transition";
 

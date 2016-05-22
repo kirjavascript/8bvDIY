@@ -139,8 +139,8 @@ function dropFade(selection) {
         .style('opacity', 0)
         .style('margin-top', '-50px')
         .transition()
-        .duration(750)
-        .ease(d3.easeElastic)
+        .duration(300)
+        .ease(d3.easeQuad)
         .style('opacity', 1)
         .style('margin-top', '0px')
 }
@@ -149,7 +149,8 @@ function jumpFade(selection) {
     selection
         .style('margin-top', '0px')
         .transition()
-        .duration(500)
+        .duration(300)
+        .ease(d3.easeQuad)
         .style('opacity', 0)
         .style('margin-top', '-50px')
         .remove()
