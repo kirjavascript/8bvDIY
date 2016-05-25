@@ -200,7 +200,6 @@ function jumpFade(selection) {
         .style('margin-top', '0px')
         .transition()
         .duration(300)
-        .ease(d3.easeQuad)
         .style('opacity', 0)
         .style('margin-top', '-50px')
         .remove()
