@@ -27,7 +27,7 @@ if(mix) {
 
 // selector caching
 
-let [pg, vg, mg, pct, nicType, nicBase, vgOut, pgOut, nicOut, qty, add] = [
+let [pg, vg, mg, nicBasePct, nicType, nicBase, vgOut, pgOut, nicOut, qty, add] = [
     mxr.select('#pg'),
     mxr.select('#vg'),
     mxr.select('#mg'),
@@ -51,11 +51,22 @@ function update() {
         mg: mg.property('value'),
         nicType: nicType.property('value'),
         nicBase: nicBase.property('value'),
+        nicBasePct: nicBasePct.property('value'),
         qty: qty.property('value')
     };
 
     function getAmt(num) {
         return (num*conf.qty/100).toFixed(2);
+    }
+
+    let grams = {
+        pg: 1.038,
+        vg: 1.26,
+        nic: 1.01 
+    };
+
+    function getGrams(ml, type) {
+        return (ml*grams[type]).toFixed(2);
     }
 
     // calc
@@ -74,14 +85,17 @@ function update() {
 
             conf[type] -= pct;
 
-            flav.select('.out').html(`${(+pct).toFixed(2)}% - ${getAmt(pct)}ml`)
+            flav.select('.out').html(`${(+pct).toFixed(2)}% - ${getAmt(pct)}ml  - ${getGrams(getAmt(pct), type)}g`)
 
         })
 
+    // grams per ml
+    let nicGrams = ((conf.nicBasePct*grams.nic)+((100-conf.nicBasePct)*grams[conf.nicType])) / 100;
+    let nicWeight = (getAmt(nicPct)*nicGrams).toFixed(2);
 
-    nicOut.html(`${nicPct}% - ${getAmt(nicPct)}ml`);
-    pgOut.html(`${(+conf.pg).toFixed(2)}% - ${getAmt(conf.pg)}ml`);
-    vgOut.html(`${(+conf.vg).toFixed(2)}% - ${getAmt(conf.vg)}ml`);
+    nicOut.html(`${nicPct}% - ${getAmt(nicPct)}ml - ${nicWeight}g`);
+    pgOut.html(`${(+conf.pg).toFixed(2)}% - ${getAmt(conf.pg)}ml - ${getGrams(getAmt(conf.pg), 'pg')}g`);
+    vgOut.html(`${(+conf.vg).toFixed(2)}% - ${getAmt(conf.vg)}ml - ${getGrams(getAmt(conf.vg), 'vg')}g`);
 
 }
 
@@ -171,14 +185,11 @@ vg.on('keydown keyup change', function() {
     })
 
 mg.on('keydown keyup change', function() {
-        pct.property('value', this.value/10)
-        if (this.value > nicBase.property('value')) {
-            nicBase.property('value', this.value)
-        }
+        nicBasePct.property('value', this.value/10)
         update();
     })
 
-pct.on('keydown keyup change', function() {
+nicBasePct.on('keydown keyup change', function() {
         mg.property('value', this.value*10)
         update();
     })
@@ -200,7 +211,6 @@ function jumpFade(selection) {
         .style('margin-top', '0px')
         .transition()
         .duration(300)
-        .ease(d3.easeQuad)
         .style('opacity', 0)
         .style('margin-top', '-50px')
         .remove()
