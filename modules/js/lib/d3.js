@@ -198,15 +198,15 @@
 //   tsvFormatRows
 // } from "d3-dsv";
 
-// export {
+export {
 //   request,
 //   html,
-//   json,
-//   text,
+  json,
+  text,
 //   xml,
 //   csv,
 //   tsv
-// } from "d3-request";
+} from "d3-request";
 
 // export {
 //   now,
