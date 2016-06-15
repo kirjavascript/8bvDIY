@@ -6,6 +6,8 @@ import flav from 'ejs-compiled!../html/flav.html';
 
 // cat10 scale for bottle
 
+console.clear();
+
 // init //
 
 let mxr = d3.select('#mxr').html(UI);
@@ -16,7 +18,26 @@ let mix = /m=([a-zA-Z0-9]*)/.exec(location.search);
 if(mix) {
 
     getMix(mix[1], mixinfo => {
-        mixinfo.forEach(d => {
+
+        mixinfo.filter((item,i) => {
+
+            // combine flavours of the same type
+
+            let index = mixinfo.findIndex(d => d.flavour == item.flavour);
+
+            if (index == i) {
+
+                return true;
+            }
+            else {
+
+                mixinfo[index].amount = (mixinfo[index].amount|0) + (mixinfo[i].amount|0);
+
+                return false;
+            }
+
+
+        }).forEach(d => {
             flavour(d.flavour, flavinfo => {
                 addFlav(Object.assign(d, flavinfo));
             })
